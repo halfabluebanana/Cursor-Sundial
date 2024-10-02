@@ -9,6 +9,8 @@ function displaySunInfo() {
 
     //// calculates sun position for a given date and latitude/longitude. SunCalc.getTimes = function (date, lat, lng, height)
     const times = SunCalc.getTimes(new Date(), latitude, longitude);
+    console.log("times:" +  JSON.stringify(times))
+   ;
 
     // calculates sun position for a given date and latitude/longitude. SunCalc.getPosition = function (date, lat, lng) {
     const sunPosition = SunCalc.getPosition(new Date(), latitude, longitude);
@@ -26,14 +28,22 @@ function displaySunInfo() {
     const shadowLength = 1 / Math.tan(altitude);
 
     // Display shadow angle and length
-    document.getElementById('shadowAngle').textContent = shadowAngle.toFixed(2);
-    document.getElementById('shadowLength').textContent = shadowLength.toFixed(2);
+    console.log("shadowAngle:" +  JSON.stringify(shadowAngle))
+    document.getElementById('shadowAngle').value = shadowAngle.toFixed(2);
+    console.log(document.getElementById('shadowAngle'))
+
+    console.log("shadowLength:" +  JSON.stringify(shadowLength))
+    document.getElementById('shadowLength').value = shadowLength.toFixed(2);
 
     //format times
     const sunrise = times.sunrise.toLocaleTimeString();
     const sunset = times.sunset.toLocaleTimeString();
-    document.getElementById("sunrise").textContent = sunrise;
-    document.getElementById("sunset").textContent = sunset;
+
+    console.log("sunrise:" +  JSON.stringify(sunrise))
+    document.getElementById("sunrise").value = sunrise;
+
+    console.log("sunset:" +  JSON.stringify(sunset))
+    document.getElementById("sunset").value = sunset;
         });
 };
 }
