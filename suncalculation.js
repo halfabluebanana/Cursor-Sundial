@@ -1,53 +1,66 @@
-// var SunCalc = require('./suncalc');
-
 function displaySunInfo() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
 
-    const latitude = position.coords.latitude; 
-    const longitude = position.coords.longitude;
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
 
-    //// calculates sun position for a given date and latitude/longitude. SunCalc.getTimes = function (date, lat, lng, height)
-    const times = SunCalc.getTimes(new Date(), latitude, longitude);
-    console.log("times:" +  JSON.stringify(times))
-   ;
+            //// calculates sun position for a given date and latitude/longitude. SunCalc.getTimes = function (date, lat, lng, height)
+            const times = SunCalc.getTimes(new Date(), latitude, longitude);
+            console.log("times:" + JSON.stringify(times))
+                ;
 
-    // calculates sun position for a given date and latitude/longitude. SunCalc.getPosition = function (date, lat, lng) {
-    const sunPosition = SunCalc.getPosition(new Date(), latitude, longitude);
+            // calculates sun position for a given date and latitude/longitude. SunCalc.getPosition = function (date, lat, lng) {
+            const sunPosition = SunCalc.getPosition(new Date(), latitude, longitude);
 
-    //calculates shadowAngle using Azimuth for direction of shadow
-    const azimuth = sunPosition.azimuth;
-    azimuth.textContent = azimuth.toFixed(4);
+            //format times
+            const sunrise = times.sunrise.toLocaleTimeString();
+            const sunset = times.sunset.toLocaleTimeString();
 
-    const altitude = sunPosition.altitude;
-    altitude.textContent = altitude.toFixed(4);
+            //console.log("sunrise:" +  JSON.stringify(sunrise));
+            document.getElementById("sunrise").value = sunrise;
 
-    const shadowAngle = (azimuth * (180 / Math.PI) + 180) % 360; //convert radians to degrees
+            //console.log("sunset:" +  JSON.stringify(sunset))
+            document.getElementById("sunset").value = sunset;
+            //         });
+            // };
+            // }
 
-    // calculate shadowLength based on altitude
-    const shadowLength = 1 / Math.tan(altitude);
+            // function shadowCalc() {
+            // const sunPosition = SunCalc.getPosition(new Date(), latitude, longitude);
+            //calculates shadowAngle using Azimuth for direction of shadow
+            const azimuth = sunPosition.azimuth;
+            azimuth.textContent = azimuth.toFixed(4);
 
-    // Display shadow angle and length
-    console.log("shadowAngle:" +  JSON.stringify(shadowAngle))
-    document.getElementById('shadowAngle').value = shadowAngle.toFixed(2);
-    console.log(document.getElementById('shadowAngle'))
+            const altitude = sunPosition.altitude;
+            altitude.textContent = altitude.toFixed(4);
 
-    console.log("shadowLength:" +  JSON.stringify(shadowLength))
-    document.getElementById('shadowLength').value = shadowLength.toFixed(2);
+            //Shadow Length and Shadow Angles 
+            const shadowAngle = (azimuth * (180 / Math.PI) + 180) % 360; //convert radians to degrees
+            // calculate shadowLength based on altitude
+            const shadowLength = 1 / Math.tan(altitude);
 
-    //format times
-    const sunrise = times.sunrise.toLocaleTimeString();
-    const sunset = times.sunset.toLocaleTimeString();
+            // Display shadow angle and length
+            //shadowAngle is a JSON object object. so we pass that into JSON stringify
 
-    console.log("sunrise:" +  JSON.stringify(sunrise))
-    document.getElementById("sunrise").value = sunrise;
+            //console.log("shadowAngle:" +  JSON.stringify(shadowAngle))
+            document.getElementById('shadowAngle').value = shadowAngle.toFixed(2);
+            //round off shadowLength to 2 decimal points
+            //used .value instead of innerHTML because shadowAngle is a number and innerHTML, and we're displaying it on the page as an input text
+            //console.log(document.getElementById('shadowAngle'))
 
-    console.log("sunset:" +  JSON.stringify(sunset))
-    document.getElementById("sunset").value = sunset;
+            //console.log("shadowLength:" +  JSON.stringify(shadowLength))
+            document.getElementById('shadowLength').value = shadowLength.toFixed(2);
+            //round off shadowLength to 2 decimal points
+            //console.log(document.getElementById('shadowLength'))
+            // }
+
+            
         });
-};
+    };
 }
 
 
 displaySunInfo();
+
 //calculate moon position
