@@ -25,10 +25,30 @@ html {
   
 
 body {
+    height: 100vh;
     color: var(--primary-color);
     font-family: "IBM Plex Mono", monospace;
     font-weight: 300;
     font-style: normal;
+    cursor: none; /*this hides the default cursor*/
+}
+#cursors {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.custom-cursor {
+  position: absolute; 
+  z-index: 999;
+  width: 100px;
+  height: 100px; 
+  background-color: grey;
+  z-index: 1000; 
+  pointer-events: none;
+  transform-origin: 50% 0%; 
+  border-radius: 5px;
 }
 
 hr {
@@ -39,6 +59,15 @@ hr {
     opacity: 0.8;
     /* border-width: 10px; */
     color: var(--primary-color);
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* Font Family Reference
