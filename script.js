@@ -3,9 +3,9 @@
 window.addEventListener('load', function () {
 
     // declare some global variables
-    let latitude;
-    let longitude;
-    let latlon;
+    let latitude = null;
+    let longitude = null;
+    let latlon = null;
 
 
     // check if we can get current position of user using Geolocation API 
