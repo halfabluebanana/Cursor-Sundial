@@ -1,3 +1,6 @@
+//used the DOMContentLoaded Event listener because console kept showing me an error that browser is trying to assess #cursors before the DOM is fully loaded. 
+document.addEventListener("DOMContentLoaded", function () {
+
 function displaySunInfo() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -7,31 +10,24 @@ function displaySunInfo() {
 
             //// calculates sun position for a given date and latitude/longitude. SunCalc.getTimes = function (date, lat, lng, height)
             const times = SunCalc.getTimes(new Date(), latitude, longitude);
-            console.log("times:" + JSON.stringify(times))
-                ;
-
-            // calculates sun position for a given date and latitude/longitude. SunCalc.getPosition = function (date, lat, lng) {
-            const sunPosition = SunCalc.getPosition(new Date(), latitude, longitude);
-
-            //format times
+            //console.log("times:" + JSON.stringify(times));
+            //get sunrise and sunset times using SunCalc. format times
             const sunrise = times.sunrise.toLocaleTimeString();
             const sunset = times.sunset.toLocaleTimeString();
 
+            // display sunrise and sunset times in input elements on the page
             //console.log("sunrise:" +  JSON.stringify(sunrise));
             document.getElementById("sunrise").value = sunrise;
-
             //console.log("sunset:" +  JSON.stringify(sunset))
             document.getElementById("sunset").value = sunset;
-            //         });
-            // };
-            // }
-
+          
+            // calculates sun position (azimuth and altitude) for a given date and latitude/longitude. SunCalc.getPosition = function (date, lat, lng) {
+            const sunPosition = SunCalc.getPosition(new Date(), latitude, longitude);
             // function shadowCalc() {
             // const sunPosition = SunCalc.getPosition(new Date(), latitude, longitude);
             //calculates shadowAngle using Azimuth for direction of shadow
             const azimuth = sunPosition.azimuth;
             azimuth.textContent = azimuth.toFixed(4);
-
             const altitude = sunPosition.altitude;
             altitude.textContent = altitude.toFixed(4);
 
@@ -55,12 +51,44 @@ function displaySunInfo() {
             //console.log(document.getElementById('shadowLength'))
             // }
 
-            
+            //Update shadow dynamically to the box shadow cursor using calculated shadow angle and length
+            updateShadowEffect(shadowAngle, shadowLength);
+
         });
     };
 }
 
+function updateShadowEffect(shadowAngle, shadowLength) {
+    const cursor = document.querySelector('.custom-cursor');
 
-displaySunInfo();
+    if(!cursor) {
+        //console.error("Error: '.custom-cursor' element not found");
+        return; // exit function if cursor is null
+    }
+    // apply shadow length and rotation based on sun's position
+    const shadowX = shadowLength * Math.cos(shadowAngle * (Math.PI / 180));
+    const shadowY = shadowLength * Math.sin(shadowLength * (Math.PI / 180));
 
+    // Log values to ensure shadowX and shadowY are correctly calculated
+    //console.log(`Shadow X: ${shadowX}, Shadow Y: ${shadowY}, Shadow Length: ${shadowLength}`);
+
+
+    // set box-shadow and transformation (rotation based on shadowAngle)
+    cursor.style.boxShadow = '${shadowX * 1000}px $shadowY * 1000}px ${shadowLength * 1000}px rgba(255, 0, 0, 0.5)';
+    cursor.style.transform = 'rotate(${shadowAngle}deg)';
+}
+
+document.addEventListener('mousemove', function(event) {
+    const cursor = document.querySelector('.custom-cursor');
+    if (cursor) { // ensure cursor exists before we move it
+    cursor.style.top = event.pageY + 'px';
+    cursor.style.left = event.pageX + 'px';
+    }
+});
+
+
+// call function to display sun info and update shadow effect
+setInterval(displaySunInfo, 1000); // this updates shadow every second
+ 
+});
 //calculate moon position
