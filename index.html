@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title> Geolocation Test </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=yes">
-    <link href="style.css" rel="stylesheet" />
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -13,9 +13,7 @@
         rel="stylesheet">
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.min.js"></script>
-    <script src="script.js"></script>
-    <script src="suncalculation.js"></script>
-    <script src="cursor.js"></script>
+
 </head>
 
 <script>
@@ -32,8 +30,12 @@
 
 
 <body onmousemove="coordinate(event)">
-    <div id = "cursors"></div>
-    
+    <div class="container">
+    <div id="cursors">
+        <div class="custom-cursor"></div>
+    </div>
+
+
     <h4>Geolocation</h4>
     <p id="location">Latitude and Longitude will be displayed here.</p>
 
@@ -68,15 +70,32 @@
     <h4>Map</h4>
     <div id="mapholder" style="width:100vw;height:100vh;"> </div>
 
-    <iframe id="mapFrame" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+
+    <!-- 
+    <iframe
+    src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=place_name"
+    width="600"
+    height="450"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+</iframe> -->
+
+
+    <!-- Moved scripts to the bottom to defer execution -->
+
+    <script src="script.js"></script>
+    <script src="suncalculation.js"></script>
+    <script src="cursor.js" defer></script>
+
 
     <!-- <iframe 
     referrerpolicy="no-referrer-when-downgrade"
     src="=https://maps.googleapis.com/maps/api/staticmap?center=latlon&zoom=12&size=640x640&maptype=satellite&key=AIzaSyCuFG-NOikYAj9JOBS3oD_nhuSxlu_T8v4"
     allowfullscreen>
        </iframe> -->
+    </div>
 </body>
 
 </html>
