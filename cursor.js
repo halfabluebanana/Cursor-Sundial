@@ -1,45 +1,167 @@
-const cursorContainer = document.getElementById("cursors");
+/* CSS styles */
 
-//event listeners to start and stop cursor movement on hover
-cursorContainer.addEventListener("mouseenter", function () {
-document.addEventListener("mousemove", displayCursorShadow);
-});
+html {
+    margin: 3em;
+}
 
-cursorContainer.addEventListener("mouseenter", function() {
-document.addEventListener("mouseleave", displayCursorShadow);
-document.querySelectorAll(".custom-cursor").forEach(cursor => cursor.remove());
+/* canvas {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid black;
+} */
 
-});
+/* .information {
+  width: 640px;
+  margin: 0 auto 50px;
+}
 
-// this displays custom cursor shadows
-function displayCursorShadow(event){
+#tracker {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  background-color: white;
+} */
+
+body {
+    height: 100%;
+    color: var(--primary-color);
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 300;
+    font-style: normal;
+    cursor: none; /*this hides the default cursor*/
+}
+
+#cursors {
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.custom-cursor {
+  position: absolute; 
+  z-index: 999;
+  width: 50px;
+  height: 10px; 
+  background-color: black;
+  z-index: 1000; 
+  pointer-events: none;
+  transform-origin: 50% 0%; 
+  border-radius: 1px;
+  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.5);
+  /* shadow default has no offset */
+}
+
+hr {
+    width: 100%;
+    text-align: left;
+    margin-left: 0;
+    height: 1px;
+    opacity: 0.8;
+    /* border-width: 10px; */
+    color: var(--primary-color);
+}
+
+.container {
+  display:inline-block;
+  float: left;
+  min-height: 90vh;
+}
+
+/* 
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+
+/* Font Family Reference
+.ibm-plex-mono-thin {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+.ibm-plex-mono-extralight {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 200;
+    font-style: normal;
+  }
+  
+  .ibm-plex-mono-light {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  .ibm-plex-mono-regular {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .ibm-plex-mono-medium {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  .ibm-plex-mono-semibold {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  .ibm-plex-mono-bold {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .ibm-plex-mono-thin-italic {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  .ibm-plex-mono-extralight-italic {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 200;
+    font-style: italic;
+  }
+  
+  .ibm-plex-mono-light-italic {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .ibm-plex-mono-regular-italic {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .ibm-plex-mono-medium-italic {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .ibm-plex-mono-semibold-italic {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  .ibm-plex-mono-bold-italic {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 700;
+    font-style: italic;
+  }
  
-    document.querySelectorAll(".custom-cursor").forEach(cursor => cursor.remove());
-
-        //create the cursor element
-        const cursor = document.createElement("div");
-        cursor.classList.add("custom-cursor");
-
-        //position cursor where mouse is
-        cursor.style.top = event.pageY + "px";
-        cursor.style.left = event.pageX + "px";
-
-        //get the centre of the screen
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-
-        //calculate angle in radians between mouse and center
-        const deltaX = event.pageX - centerX;
-        const deltaY = event.pageY - centerY;
-        const angleInRadians = Math.atan2(deltaY, deltaX);
-
-        //convert angle to degrees
-        const degrees = (angleInRadians * 180 / Math.PI);
-
-        //Apply rotation
-        cursor.style.transform = 'rotate(${degrees}deg)';
-
-        //add cursor to the body 
-        document.body.appendChild(cursor);
-
-    };
+    
