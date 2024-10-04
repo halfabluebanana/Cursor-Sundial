@@ -1,7 +1,7 @@
 /* CSS styles */
 
 html {
-    margin: 3em;
+    margin: 0;
 }
 
 /* canvas {
@@ -23,7 +23,8 @@ html {
 } */
 
 body {
-    height: 100%;
+    height: 100vh;
+    width: 100vw;
     color: var(--primary-color);
     font-family: "IBM Plex Mono", monospace;
     font-weight: 300;
@@ -32,6 +33,7 @@ body {
 }
 
 #cursors {
+  margin: 0;
   position: absolute;
   z-index: 999;
   width: 100%;
@@ -65,8 +67,22 @@ hr {
 
 .container {
   display:inline-block;
-  float: left;
   min-height: 90vh;
+}
+
+#mapholder {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: -1000; /*Embed map at the bottom */
+  opacity: 30%;
+}
+#mapholder img {
+  width: 100%; /* Make image responsive */
+  height: 100%; /* Make image responsive */
+  object-fit: cover; /* Maintain aspect ratio */
+  position: absolute;
+  z-index: -1000;
 }
 
 /* 
