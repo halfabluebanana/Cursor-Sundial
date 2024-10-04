@@ -54,6 +54,24 @@ function displaySunInfo() {
             //Update shadow dynamically to the box shadow cursor using calculated shadow angle and length
             updateShadowEffect(shadowAngle, shadowLength);
 
+            // Function to update the position of the link
+            function updateLinkPosition() {
+                // Calculate the position based on shadow angle and length
+                const xPosition = shadowLength * Math.cos(shadowAngle * (Math.PI / 180));
+                const yPosition = shadowLength * Math.sin(shadowAngle * (Math.PI / 180));
+
+                // Get the link element
+                const link = document.getElementById('dynamicLink');
+
+                // Set the new position
+                link.style.left = `${xPosition + 50}px`; // Adjust position based on shadow length (50px for centering)
+                link.style.top = `${yPosition + 50}px`; // Adjust position based on shadow length (50px for centering)
+            }
+
+            // Call the function to set the initial position of the link
+            updateLinkPosition();
+
+
         });
     };
 }
